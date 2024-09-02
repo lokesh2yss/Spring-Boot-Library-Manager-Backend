@@ -22,16 +22,12 @@ public class AuthorEntity {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "author_book_id",
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id")
     )
     private Set<BookEntity> books;
-
-    public Set<BookEntity> getBooks() {
-        return books;
-    }
 
     @Override
     public boolean equals(Object o) {
